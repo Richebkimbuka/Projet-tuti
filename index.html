@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CyberVault</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="background"></div>
+
+    <main class="container">
+
+        <section class="hero">
+
+            <span class="badge">
+                CYBER SECURITY
+            </span>
+
+            <h1>
+                CyberVault
+            </h1>
+
+            <p>
+                Générateur intelligent de mots de passe
+                sécurisés et robustes.
+            </p>
+
+        </section>
+
+        <section class="card">
+
+            <h2>
+                Générateur de mot de passe
+            </h2>
+
+            <form method="POST">
+
+                <label>
+                    Longueur
+                </label>
+
+                <input
+                    type="range"
+                    min="8"
+                    max="64"
+                    name="longueur"
+                    value="{{ longueur }}"
+                    oninput="lengthValue.textContent=this.value">
+
+                <span id="lengthValue">
+                    {{ longueur }}
+                </span>
+
+                <div class="options">
+
+                    <label>
+                        <input type="checkbox"
+                               name="majuscules"
+                               checked>
+                        Majuscules
+                    </label>
+
+                    <label>
+                        <input type="checkbox"
+                               name="minuscules"
+                               checked>
+                        Minuscules
+                    </label>
+
+                    <label>
+                        <input type="checkbox"
+                               name="chiffres"
+                               checked>
+                        Chiffres
+                    </label>
+
+                    <label>
+                        <input type="checkbox"
+                               name="symboles"
+                               checked>
+                        Symboles
+                    </label>
+
+                </div>
+
+                <button type="submit">
+                    Générer le mot de passe
+                </button>
+
+            </form>
+
+            {% if mot_de_passe %}
+
+            <div class="result">
+
+                <input
+                    type="text"
+                    id="password"
+                    value="{{ mot_de_passe }}"
+                    readonly>
+
+                <button
+                    class="copy-btn"
+                    onclick="copyPassword()">
+                    Copier
+                </button>
+
+            </div>
+
+            {% endif %}
+
+        </section>
+
+        <section class="card">
+
+            <h2>
+                Bonnes pratiques
+            </h2>
+
+            <ul>
+                <li>Utilisez au minimum 12 à 14 caractères.</li>
+                <li>Mélangez lettres, chiffres et symboles.</li>
+                <li>Utilisez un mot de passe unique pour chaque compte.</li>
+                <li>Évitez les informations personnelles.</li>
+                <li>Utilisez un gestionnaire de mots de passe.</li>
+            </ul>
+
+        </section>
+
+    </main>
+
+    <script>
+        function copyPassword() {
+
+            const password =
+                document.getElementById("password");
+
+            password.select();
+
+            navigator.clipboard.writeText(
+                password.value
+            );
+        }
+    </script>
+
+</body>
+
+</html>
